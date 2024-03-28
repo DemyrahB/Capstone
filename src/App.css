@@ -1,0 +1,14 @@
+body{
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.product-container{
+  display: grid;
+}
+
+.product-item{
+  width: 100px;
+  height: 100px;
+}
+
