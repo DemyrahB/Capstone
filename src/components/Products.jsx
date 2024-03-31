@@ -9,10 +9,9 @@ export default function Products(){
             try {
             const response = await fetch(APIURL)
             const result = await response.json()
-            console.log(result)
             setProducts(result)
             } catch (error) {
-                console.log(error)
+                alert("Error")
             }
         }getAllProducts()
     }, [])
