@@ -1,18 +1,14 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function SignUp(){
     const APIURL = "https://fakestoreapi.com/users"
     const [email, setEmail] = useState("")
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
-    const [firstname, setFirstName] = useState("")
-    const [lastname, setLastName] = useState("")
-    const [city, setCity] = useState("")
-    const [street, setStreet] = useState("")
-    const [number, setNumber] = useState("")
-    const [zipcode, setZipCode] = useState("")
-    const [phone, setPhone] = useState("")
+    const [name, setName] = useState("")
+    const navigate = useNavigate()
+
 
     async function handleSignUp (e){
         e.preventDefault();
@@ -23,24 +19,14 @@ export default function SignUp(){
                     email: email,
                     username: username,
                     password: password,
-                    name: {
-                        firstname: firstname,
-                        lastname: lastname
-                    },
-                    address:{
-                        city: city, 
-                        street: street,
-                        number: number,
-                        zipcode: zipcode
-                    },
-                    phone: phone
+                    name: name,
                 })
             })
-            const result = response.json()
-           if(Promise){
-            alert("Error")
+            const result = await response.json()
+           if(result.id){
+            alert("Registraton Successful. Please login using your credentials.")
            } else{
-            alert("Success")
+            alert("Error")
            }
         } catch (error) {
             console.error(error)
@@ -48,71 +34,51 @@ export default function SignUp(){
     }
     return(
         <>
-        <h2>NEW USER REGISTRATION</h2>
+        <div>
+        <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo1"/></Link>
+        </div>
+        
         <div className="signup-form">
-            <form onSubmit={handleSignUp}>  
+
+            <form onSubmit={handleSignUp} className="signup"> 
+                <h2>Create Account</h2>
+                <label htmlFor="">Your name</label>
+                <input 
+                    type="text"
+                    placeholder="First and last name"
+                    required
+                    value={name}
+                    onChange={(e)=>{setName(e.target.value)}} />
+                <label htmlFor="">Email</label>
                 <input 
                 type="email"
-                placeholder="Email"
                 required
                 value={email}
                 onChange={(e)=>{setEmail(e.target.value)}} />
+                <label htmlFor="">Username</label>
                 <input
                 type="text"
-                placeholder="Username"
                 required
                 value={username}
                 onChange={(e)=>{setUserName(e.target.value)}}/>
+                <label htmlFor="">Password</label>
                 <input 
                 type="password"
-                placeholder="Password"
+                placeholder="At least 6 characters"
                 required
                 value={password}
                 onChange={(e)=>{setPassword(e.target.value)}} />
+                <label htmlFor="">Re-enter password</label>
                 <input 
-                type="text"
-                placeholder="First Name"
+                type="password"
                 required
-                value={firstname}
-                onChange={(e)=>{setFirstName(e.target.value)}} />
-                <input 
-                type="text"
-                placeholder="Last Name"
-                required
-                value={lastname}
-                onChange={(e)=>{setLastName(e.target.value)}} />
-                <input
-                type="text"
-                placeholder="City"
-                required
-                value={city}
-                onChange={(e)=>{setCity(e.target.value)}} />
-                <input 
-                type="text"
-                placeholder="street"
-                required
-                value={street}
-                onChange={(e)=>{setStreet(e.target.value)}} />
-                <input 
-                type="number"
-                placeholder="Apt number"
-                required
-                value={number}
-                onChange={(e)=>{setNumber(e.target.value)}} />
-                <input 
-                type="number"
-                placeholder="zipcode"
-                required
-                value={zipcode}
-                onChange={(e)=>{setZipCode(e.target.value)}} />
-                <input 
-                type="number"
-                placeholder="Phone number"
-                required
-                value={phone}
-                onChange={(e)=>{setPhone(e.target.value)}} />
+                value={password}
+                onChange={(e)=>{setPassword(e.target.value)}} />
                 <button className="signup-btn">Sign Up</button>
             </form>
+            <div>
+                <p>Already have an account? <Link to={"/login"}>Sign In</Link></p>
+            </div>
         </div>
         </>
     )

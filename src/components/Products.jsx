@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Header from "./Header"
 
 export default function Products(){
     const APIURL = 'https://fakestoreapi.com/products'
@@ -18,12 +19,14 @@ export default function Products(){
     
     return(
         <>
+        <Header/>
         {products.map((product)=>{
             return(
                 <div className="product-container">
-                <img src={product.image} className="product-item"></img>
-                <p>{product.title}</p>
-                <p>{product.price}</p>
+                    <p className="product-title">{product.title}</p>
+                    <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
+                    <img src={product.image} className="product-item"></img>
+                    <button className="cart-btn">Add to Cart</button>
                 </div>
             )
         })}
