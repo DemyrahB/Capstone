@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import Products from './components/Products'
-import Header from './components/Header'
 import { Route, Routes } from 'react-router-dom'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Checkout from './components/Checkout'
+import SingleProduct from './components/SingleProduct'
 function App() {
   
 
@@ -17,6 +17,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/checkout' element={<Checkout/>}/>
+      <Route path="/product/:id" element={<SingleProduct/>}/>
     </Routes>
     </>
   )

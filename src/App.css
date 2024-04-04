@@ -7,29 +7,31 @@ body{
 
 .product-container{
   display: inline-grid;
+  max-width: 80%;
   background: #fff;
   z-index: 1;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 10px;
   place-items: center;
   
 }
 .product-item{
   width: 100%;
-  max-height: 200px;
+  max-height: 150px;
   margin: 10px;
   padding: 10px;
   object-fit: contain;
 }
 
+.product-title{
+  inline-size: 300px;
+}
+
 .cart-btn{
   max-width: 100px;
-  
-  
 }
 
 .header{
-  background-color: #3d434b;
+  background-color: #69757d;
   display: flex;
   align-items: center;
   position: sticky;
@@ -93,10 +95,10 @@ body{
   margin-right: 10px;
 }
 
-.banner{
-  width: 100%;
+.banner {
+  width: 80%;
   height: 500px;
-  mask-image: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+  mask-image: linear-gradient(to bottom, rgb(0, 0, 0, 1), rgba(0, 0, 0, 0));
   z-index: -1;
   margin-bottom: -150px;
 }

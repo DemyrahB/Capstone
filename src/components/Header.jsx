@@ -61,9 +61,13 @@ export default function Header(){
                     {item.title} <hr /></div>)
                 }
                 </div> 
+
+                <div>
+                    <h1>Lorem Ipsum</h1>
+                </div>
                 
                 {/*<div>
-                    <img src="https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465254_1pN9MGrA831idD6zIBL7q8rnZZpUCQTy.jpg" alt="banner" className="banner" />
+                    <img src="https://t4.ftcdn.net/jpg/02/16/47/35/360_F_216473592_NefHePTpMfvYMNjD3UQTUVJy7DFPwqKA.jpg" alt="banner" className="banner" />
             </div>*/}
                 </>
                 
