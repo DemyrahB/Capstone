@@ -1,29 +1,42 @@
-import { useParams, Link } from "react-router-dom"
-import { useState, useEffect } from "react"
-import axios from "axios";
-import { faStar, faStarHalf, faMagnifyingGlass, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 
-
-
-export default function SingleProduct(){
+export default function Home(){
     const APIURL = 'https://fakestoreapi.com/products'
+    const [products, setProducts] = useState([])
+    const navigate = useNavigate()
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Men")
-    const [product, setProduct] = useState([])
-    const {id} = useParams();
-    const [products, setProducts] = useState({})
 
-    useEffect(() => {
-        axios.get(`${APIURL}/${id}`)
-        .then((res) => {
-            console.log(res.data)
-            setProducts(res.data)
-        })
-    }, [id])
-    return(
+    useEffect(()=>{
+        async function getAllProducts(){
+            try {
+            const response = await fetch(APIURL)
+            const result = await response.json()
+            setProducts(result)
+            } catch (error) {
+                alert("Error")
+            }
+        }getAllProducts()
+    }, [])
+
+        function handleSingle(id){
+            async function getSingleProduct(id){
+                try {
+                    const response = await fetch(`${APIURL}/${id}`)
+                    const result = await response.json()
+                    console.log(result)
+                } catch (error) {
+                    throw error
+                }
+            }getSingleProduct(id)
+        }
+    
+    return (
         <>
-         <nav className="header">
+          <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
                 <input type="text" 
@@ -53,7 +66,7 @@ export default function SingleProduct(){
             </div>
             <Link to="/checkout" className="header-link">
                 <div className="header-basket">
-                <FontAwesomeIcon icon={faBasketShopping} />
+                <FontAwesomeIcon icon={faShoppingCart} />
                 <span className="header-basket-items">2</span>
                 </div>
             </Link>
@@ -72,37 +85,29 @@ export default function SingleProduct(){
                     <h1>Lorem Ipsum</h1>
                 </div>
 
-                {product.filter((product) => {
-                    return search.toLowerCase() === ''
-                    ? product : product.title.toLowerCase().includes(search)
+                <div>
+                {products.filter((product) => {
+                    return search.toLowerCase() === '' 
+                    ? product : product.title.
+                    toLowerCase().includes(search)
                 }).map((product)=>{
-                    return(
-                    <div className="product-container" key={product.id}>
-                        <p className="product-title">{product.title}</p>
-                        <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
-                        <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                        <button className="cart-btn">Add to Cart</button>
-                    </div>
-                    )
-                })}
-        <h2 className="product-title2">{products.title}</h2>
-        <div className="product-display">
-        {<img className="product-image2" src={products.image}></img>}
-        <div>
-           <p className="product-description"> {products.description}</p>
-           <p className="product-price2"> ${products.price}</p>
-           <div>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStarHalf} className="stars"/>
-            <p>(122)</p>
-           </div>
-            <button className="product-btn">ADD TO CART</button>
-            <p className="product-category"><span>Category : </span>{products.category}</p>
-        </div>
-        </div>
-        </>
+            return(
+                <div className="product-container" key={product.id}>
+                    <p className="product-title">{product.title}</p>
+                    <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
+                    <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
+                    <button className="cart-btn">Add to Cart</button>
+                </div>
+            )
+        })}
+                </div>
+
+                
+                {/*<div>
+                    <img src="https://t4.ftcdn.net/jpg/02/16/47/35/360_F_216473592_NefHePTpMfvYMNjD3UQTUVJy7DFPwqKA.jpg" alt="banner" className="banner" />
+            </div>*/}
+                </>
+                
+
     )
 }

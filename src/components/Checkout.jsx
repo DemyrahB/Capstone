@@ -1,8 +1,8 @@
-import Header from "./Header"
+import Header from "./Home"
 import Subtotal from "./Subtotal"
 
 export default function Checkout(){
-    
+
 
     return (
         <>

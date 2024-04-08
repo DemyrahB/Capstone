@@ -1,29 +1,28 @@
-import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
-import axios from "axios";
-import { faStar, faStarHalf, faMagnifyingGlass, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
-
-export default function SingleProduct(){
-    const APIURL = 'https://fakestoreapi.com/products'
+import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+export default function Women(){
+    const APIURL = "https://fakestoreapi.com/products/category"
     const [search, setSearch] = useState('')
-    const [menu, setMenu] = useState("Men")
+    const [menu, setMenu] = useState("")
     const [product, setProduct] = useState([])
-    const {id} = useParams();
-    const [products, setProducts] = useState({})
-
-    useEffect(() => {
-        axios.get(`${APIURL}/${id}`)
-        .then((res) => {
-            console.log(res.data)
-            setProducts(res.data)
-        })
-    }, [id])
+    useEffect(()=>{
+        async function getCategory(){
+            try {
+            const response = await fetch (`${APIURL}/women's clothing`)
+            const result = await response.json()
+            console.log(result)
+            setProduct(result)
+            } catch (error) {
+                console.log(error)
+            }
+        }getCategory()
+    }, [])
+    
     return(
         <>
-         <nav className="header">
+        <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
                 <input type="text" 
@@ -53,7 +52,7 @@ export default function SingleProduct(){
             </div>
             <Link to="/checkout" className="header-link">
                 <div className="header-basket">
-                <FontAwesomeIcon icon={faBasketShopping} />
+                <FontAwesomeIcon icon={faShoppingCart} />
                 <span className="header-basket-items">2</span>
                 </div>
             </Link>
@@ -85,24 +84,6 @@ export default function SingleProduct(){
                     </div>
                     )
                 })}
-        <h2 className="product-title2">{products.title}</h2>
-        <div className="product-display">
-        {<img className="product-image2" src={products.image}></img>}
-        <div>
-           <p className="product-description"> {products.description}</p>
-           <p className="product-price2"> ${products.price}</p>
-           <div>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStar} className="stars"/>
-            <FontAwesomeIcon icon={faStarHalf} className="stars"/>
-            <p>(122)</p>
-           </div>
-            <button className="product-btn">ADD TO CART</button>
-            <p className="product-category"><span>Category : </span>{products.category}</p>
-        </div>
-        </div>
         </>
     )
 }

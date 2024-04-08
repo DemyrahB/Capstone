@@ -12,15 +12,15 @@ export default function Login(){
     async function handleLogin(e){
         e.preventDefault();
         try {
-            const response = await fetch (APIURL, {
-                method: 'POST',
+            const response = await fetch('https://fakestoreapi.com/auth/login',{
+                method: "POST",
                 body:JSON.stringify({
-                    username: username,
-                    password: password
+                    username: "mor_2314",
+                    password: "83r5^_"
                 })
             })
-            const result = await response.json()
-            console.log(result)
+                .then(res=>res.json())
+                .then(json=>console.log(json))
         } catch (error) {
             console.log(error)
         }

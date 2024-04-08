@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom"
 export default function Products(){
     const APIURL = 'https://fakestoreapi.com/products'
     const [products, setProducts] = useState([])
-    const navigate = useNavigate()
 
 
     useEffect(()=>{
@@ -34,18 +33,6 @@ export default function Products(){
     
     return(
         <>
-        <Header/>
-        {products.map((product)=>{
-            return(
-                <div className="product-container" key={product.id}>
-                    <p className="product-title">{product.title}</p>
-                    <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
-                    
-                    <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                    <button className="cart-btn">Add to Cart</button>
-                </div>
-            )
-        })}
         </>
     )
 }
