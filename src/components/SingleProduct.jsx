@@ -1,15 +1,16 @@
 import { useParams, Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import axios from "axios";
-import { faStar, faStarHalf, faMagnifyingGlass, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faStarHalf, faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CartContext } from "../Context/ShoppingCartContext";
+import Cart from "./Cart";
 
 
-
-export default function SingleProduct(){
+export default function SingleProduct({CartState}){
     const APIURL = 'https://fakestoreapi.com/products'
     const [search, setSearch] = useState('')
-    const [menu, setMenu] = useState("Men")
+    const [menu, setMenu] = useState("Menu")
     const [product, setProduct] = useState([])
     const {id} = useParams();
     const [products, setProducts] = useState({})
@@ -21,6 +22,13 @@ export default function SingleProduct(){
             setProducts(res.data)
         })
     }, [id])
+
+    const {cartItems, addToCart} = useContext(CartContext)
+    const [showModal, setShowModal] = useState(false)
+
+        const toggle = () => {
+            setShowModal(!showModal) 
+        }
     return(
         <>
          <nav className="header">
@@ -51,12 +59,10 @@ export default function SingleProduct(){
             </div>
             </Link>
             </div>
-            <Link to="/checkout" className="header-link">
-                <div className="header-basket">
-                <FontAwesomeIcon icon={faBasketShopping} />
-                <span className="header-basket-items">2</span>
-                </div>
-            </Link>
+            {!showModal && <button className="header-link" onClick={toggle}> 
+                <FontAwesomeIcon icon={faShoppingCart} />
+                ({cartItems.length})
+            </button>}
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
@@ -81,7 +87,6 @@ export default function SingleProduct(){
                         <p className="product-title">{product.title}</p>
                         <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
                         <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                        <button className="cart-btn">Add to Cart</button>
                     </div>
                     )
                 })}
@@ -99,10 +104,13 @@ export default function SingleProduct(){
             <FontAwesomeIcon icon={faStarHalf} className="stars"/>
             <p>(122)</p>
            </div>
-            <button className="product-btn">ADD TO CART</button>
+            <button onClick={()=> addToCart(products)} className="product-btn">ADD TO CART</button>
             <p className="product-category"><span>Category : </span>{products.category}</p>
         </div>
         </div>
+        <Cart showModal={showModal} toggle={toggle} />
+        
         </>
+        
     )
 }

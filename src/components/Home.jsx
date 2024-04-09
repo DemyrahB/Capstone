@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../Context/ShoppingCartContext";
+import Cart from "./Cart";
+import Sidebar from "./Sidebar";
 
-export default function Home(){
+export default function Home({CartState}){
     const APIURL = 'https://fakestoreapi.com/products'
     const [products, setProducts] = useState([])
-    const navigate = useNavigate()
     const [search, setSearch] = useState('')
-    const [menu, setMenu] = useState("Men")
+    const [menu, setMenu] = useState("Menu")
 
     useEffect(()=>{
         async function getAllProducts(){
@@ -17,7 +19,7 @@ export default function Home(){
             const result = await response.json()
             setProducts(result)
             } catch (error) {
-                alert("Error")
+                console.log(error)
             }
         }getAllProducts()
     }, [])
@@ -32,6 +34,13 @@ export default function Home(){
                     throw error
                 }
             }getSingleProduct(id)
+        }
+
+        const {cartItems, addToCart} = useContext(CartContext)
+        const [showModal, setShowModal] = useState(false)
+
+        const toggle = () => {
+            setShowModal(!showModal) 
         }
     
     return (
@@ -56,20 +65,11 @@ export default function Home(){
             <Link to="/login" className="header-link"> 
             <span className="header-option2">Sign In</span>
             </Link>
-            <Link className="header-link">
-            <div className="header-option">
-                <span className="header-option1">Returns</span>
-                <span className="header-option2">& Orders</span>
-
             </div>
-            </Link>
-            </div>
-            <Link to="/checkout" className="header-link">
-                <div className="header-basket">
+            {!showModal && <button className="header-link" onClick={toggle}> 
                 <FontAwesomeIcon icon={faShoppingCart} />
-                <span className="header-basket-items">2</span>
-                </div>
-            </Link>
+                ({cartItems.length})
+            </button>}
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
@@ -92,20 +92,25 @@ export default function Home(){
                     toLowerCase().includes(search)
                 }).map((product)=>{
             return(
-                <div className="product-container" key={product.id}>
-                    <p className="product-title">{product.title}</p>
-                    <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
-                    <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                    <button className="cart-btn">Add to Cart</button>
-                </div>
+        <div className="product-container" key={product.id}>
+            <p className="product-title">{product.title}</p>
+            <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
+            <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
+            <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
+        </div>
             )
         })}
                 </div>
+                
 
                 
                 {/*<div>
                     <img src="https://t4.ftcdn.net/jpg/02/16/47/35/360_F_216473592_NefHePTpMfvYMNjD3UQTUVJy7DFPwqKA.jpg" alt="banner" className="banner" />
             </div>*/}
+
+            <Cart showModal={showModal} toggle={toggle} />
+
+            <div>open/close sidebar</div>
                 </>
                 
 

@@ -15,8 +15,8 @@ export default function Login(){
             const response = await fetch('https://fakestoreapi.com/auth/login',{
                 method: "POST",
                 body:JSON.stringify({
-                    username: "mor_2314",
-                    password: "83r5^_"
+                    username: username,
+                    password: password
                 })
             })
                 .then(res=>res.json())

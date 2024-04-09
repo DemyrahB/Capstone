@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { Link} from "react-router-dom";
-export default function Jewelry(){
+import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../Context/ShoppingCartContext";
+import Cart from "./Cart";
+export default function Men(){
     const APIURL = "https://fakestoreapi.com/products/category"
     const [search, setSearch] = useState('')
-    const [menu, setMenu] = useState("")
+    const [menu, setMenu] = useState("Men")
     const [product, setProduct] = useState([])
     useEffect(()=>{
         async function getCategory(){
@@ -19,6 +21,13 @@ export default function Jewelry(){
             }
         }getCategory()
     }, [])
+
+    const {cartItems, addToCart} = useContext(CartContext)
+        const [showModal, setShowModal] = useState(false)
+
+        const toggle = () => {
+            setShowModal(!showModal) 
+        }
     
     return(
         <>
@@ -50,12 +59,10 @@ export default function Jewelry(){
             </div>
             </Link>
             </div>
-            <Link to="/checkout" className="header-link">
-                <div className="header-basket">
+            {!showModal && <button className="header-link" onClick={toggle}> 
                 <FontAwesomeIcon icon={faShoppingCart} />
-                <span className="header-basket-items">2</span>
-                </div>
-            </Link>
+                ({cartItems.length})
+            </button>}
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
@@ -80,10 +87,12 @@ export default function Jewelry(){
                         <p className="product-title">{product.title}</p>
                         <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
                         <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                        <button className="cart-btn">Add to Cart</button>
+                        <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
                     </div>
                     )
                 })}
+
+        <Cart showModal={showModal} toggle={toggle} />
         </>
     )
 }
