@@ -12,14 +12,15 @@ import Jewelry from './components/Jewelry'
 import Electronics from './components/Electronics'
 import Admin from './components/Admin'
 import Cart from './components/Cart'
-import Sidebar from './components/Sidebar'
+import UserHome from './components/UserHome'
+import Successful from './components/Successful'
+
 
 function App() {
   
 
   return (
     <>
-  <Sidebar/>
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
@@ -33,6 +34,8 @@ function App() {
       <Route path='/electronics' element={<Electronics/>}/>
       <Route path='/administration' element={<Admin/>}/>
       <Route path='/shop/cart' element={<Cart/>}/>
+      <Route path='/userhome' element={<UserHome/>}/>
+      <Route path='/successful' element={<Successful/>}/>
      </Routes>
     </>
   )

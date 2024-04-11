@@ -16,25 +16,25 @@ export default function Cart({showModal, toggle}){
         showModal && (
           <div className="cart-div">
             <h1>Cart</h1>
-            <div>
+            <div className="cart-button">
               <button
                 onClick={toggle}
               >
                 Close
               </button>
             </div>
-            <div>
+            <div className="cart-div-products">
               {cartItems.map((item) => (
-                <div key={item.id}>
-                  <div>
+                <div className="products-div" key={item.id}>
+                  <div className="image-div">
                     <img src={item.image} alt={item.title} className="product-image3" />
-                    <div>
+                    <div className="price-div">
                       <h1>{item.title}</h1>
                       <p>${item.price}</p>
                     </div>
                   </div>
-                  <div>
-                    <button
+                  <div className="btn-div">
+                    <button className="addToCartbtn"
                       onClick={() => {
                         addToCart(item)
                       }}

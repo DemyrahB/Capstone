@@ -4,55 +4,22 @@ import { faMagnifyingGlass, faShoppingCart, faShoppingBag } from "@fortawesome/f
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
-{/*import Filters from "./Filters"*/}
 
-import Rating from "./Rating";
-
-export default function Home({CartState}){
-    const APIURL = 'https://fakestoreapi.com/products'
+export default function Successful(){
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Menu")
-    const navigate = useNavigate()
     
-
-    useEffect(()=>{
-        async function getAllProducts(){
-            try {
-            const response = await fetch(APIURL)
-            const result = await response.json()
-            setProducts(result)
-            } catch (error) {
-                console.log(error)
-            }
-        }getAllProducts()
-    }, [])
-
-        function handleSingle(id){
-            async function getSingleProduct(id){
-                try {
-                    const response = await fetch(`${APIURL}/${id}`)
-                    const result = await response.json()
-                    console.log(result)
-                } catch (error) {
-                    throw error
-                }
-            }getSingleProduct(id)
-        }
-
-        const {cartItems, addToCart} = useContext(CartContext)
+    const {cartItems, addToCart} = useContext(CartContext)
         const [showModal, setShowModal] = useState(false)
 
         const toggle = () => {
             setShowModal(!showModal) 
         }
-
     
-    return (
-        <> 
-        {/*<Filters/>*/}
-        
-          <nav className="header">
+    return(
+        <>
+         <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
                 <input type="text" 
@@ -105,19 +72,14 @@ export default function Home({CartState}){
             <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
             <p><Rating rate={product.rating}/></p>
             <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-            <button onClick={()=> navigate('/login')} className="cart-btn">Add to Cart</button>
+            <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
         </div>
             )
         })}
-                </div>
-
-            <Cart showModal={showModal} toggle={toggle} />
-
-           
-
-            
-                </>
-                
-
+        </div>
+        <div>
+            <h1>THANK YOU FOR YOUR ORDER!</h1>
+        </div>
+        </>
     )
 }

@@ -1,12 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body{
   margin: 0px;
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
   background-color: rgb(232, 229, 229);
+  width: 100%;
 }
 
 .product-container{
@@ -18,11 +15,11 @@ body{
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  place-items: center;
+ place-items: center;
   
 }
 .product-item{
-  width: 100%;
+  width: 80%;
   max-height: 150px;
   margin: 10px;
   padding: 10px;
@@ -249,5 +246,111 @@ justify-content: center;
 }
 
 .product-image3{
+  width: 100px;
+  border-radius: round;
+}
+
+.cart-div{
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  left: 1/4;
+  background-color: white;
+  gap: 8;
+  padding: 10; 
+  width: 500px;
+}
+
+.cart-button{
+  position: absolute;
+  right: 16;
+  top: 10;
+}
+
+.cart-div-products{
+  display: flex;
+  flex-direction: column;
+  gap: 4;
+}
+
+.products-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image-div{
+  display: flex;
+  gap: 4;
+}
+
+.price-div{
+  display: flex;
+  gap: 8;
+  justify-content: center;
+}
+
+.btn-div{
+  display: flex;
+  gap: 4;
+}
+
+.addToCartbtn :hover :focus{
+  padding: 4;
+  scroll-padding: 2;
+  background-color: gray;
+  font-size: x-small;
+  font-weight: bold uppercase;
+  border-radius: round;
+  outline: none;
+}
+
+.filters {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 10px;
+  height: 86vh;
+  position: fixed;
+  transition-duration: 300;
+  z-index: 20;
+  box-shadow: 2;
+}
+
+.filters > span {
+  padding-bottom: 20px;
+}
+
+.title{
+  font-size: 30px;
+}
+
+h1{
+  font-size: medium;
+}
+
+h4{
+  text-align: left;
+}
+
+.form-input, .form-label, select, option {
+  display: block;
+  padding: 6px;
   width: 300px;
+  border-radius: 4px;
+  text-align: left;
+}
+
+
+.payment-details{
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  text-align: left;
+  margin-top: 30px;
+  max-width: 450px;
+  height: 300px;
 }

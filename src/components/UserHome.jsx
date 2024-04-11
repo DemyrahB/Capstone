@@ -4,11 +4,10 @@ import { faMagnifyingGlass, faShoppingCart, faShoppingBag } from "@fortawesome/f
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
-{/*import Filters from "./Filters"*/}
 
 import Rating from "./Rating";
 
-export default function Home({CartState}){
+export default function UserHome({CartState}){
     const APIURL = 'https://fakestoreapi.com/products'
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState('')
@@ -50,7 +49,7 @@ export default function Home({CartState}){
     
     return (
         <> 
-        {/*<Filters/>*/}
+
         
           <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
@@ -105,7 +104,7 @@ export default function Home({CartState}){
             <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
             <p><Rating rate={product.rating}/></p>
             <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-            <button onClick={()=> navigate('/login')} className="cart-btn">Add to Cart</button>
+            <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
         </div>
             )
         })}
