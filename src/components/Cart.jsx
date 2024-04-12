@@ -10,7 +10,7 @@ export default function Cart({showModal, toggle}){
     
     const handleClick = ()=>{
       if (cartItems.length === 0){
-        alert('Your cart is empty.')
+        alert('Your cart is empty. Please select an item for purchase before checking out.')
       } else{
         navigate('/checkout')
       }
