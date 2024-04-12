@@ -21,6 +21,7 @@ export default function Checkout(){
 
         const handleClick = (e)=>{
             e.preventDefault(); 
+            clearCart(),
             navigate('/successful')
           }
     
