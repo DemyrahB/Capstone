@@ -52,11 +52,6 @@ export default function SingleProduct({CartState}){
             <span className="header-option2">Sign In</span>
             </Link>
             <Link className="header-link">
-            <div className="header-option">
-                <span className="header-option1">Returns</span>
-                <span className="header-option2">& Orders</span>
-
-            </div>
             </Link>
             </div>
             {!showModal && <button className="header-link" onClick={toggle}> 
@@ -66,7 +61,7 @@ export default function SingleProduct({CartState}){
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
-                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/userhome"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/men"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/women"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/jewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>

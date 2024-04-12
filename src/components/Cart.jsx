@@ -9,7 +9,13 @@ export default function Cart({showModal, toggle}){
     const navigate = useNavigate()
     
     const handleClick = ()=>{
-      navigate("/checkout")
+      if (cartItems.length === 0){
+        alert('Your cart is empty.')
+      } else{
+        navigate('/checkout')
+      }
+      
+      
     }
 
     return (

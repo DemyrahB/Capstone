@@ -47,7 +47,7 @@ export default function Successful(){
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
-                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/userhome"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/men"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/women"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
                 <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/jewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>

@@ -52,11 +52,6 @@ export default function Men(){
             <span className="header-option2">Sign In</span>
             </Link>
             <Link className="header-link">
-            <div className="header-option">
-                <span className="header-option1">Returns</span>
-                <span className="header-option2">& Orders</span>
-
-            </div>
             </Link>
             </div>
             {!showModal && <button className="header-link" onClick={toggle}> 
