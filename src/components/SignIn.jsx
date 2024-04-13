@@ -1,35 +1,37 @@
-import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useState} from "react"
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-
-export default function Login(){
+export default function SignIn(){
     const APIURL = "https://fakestoreapi.com/auth/login"
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
-    const navigate = useNavigate() 
-
-
-    async function handleLogin(e){
-        e.preventDefault();
-        try {
-            const response = await fetch(APIURL,{
-                method: "POST",
-                body:JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            })
-                const result = await response.json()
-                console.log(result)
-                
-        } catch (error) {
-            if(error){
-                    navigate('/userhome')
-                }
+    const navigate = useNavigate()
+    
+    async function handleSignIn(){
+    axios.post(APIURL, {
+        username: username,
+        password: password
+      })
+      .then(function (response) {
+        console.log(response);
+        if(response.data.token){
+            navigate('/userhome')
+            const token = response.data.token
+            localStorage.setItem("jsonwebtoken", token)
+        } else{
+            alert("Error")
         }
-    }
+      } 
+      )
+      .catch(function (error) {
+        console.log(error);
+      });
+ }
+
     return(
-        <body className="container">
+        <>
+        <div className="container">
             <div>
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo1"/></Link>
             </div>
@@ -37,7 +39,7 @@ export default function Login(){
             
             </div>
         <div className="login">
-            <form onSubmit={handleLogin} className="login-form">
+            <form className="login-form" onSubmit={handleSignIn()}>
                 <h2>SIGN IN</h2>
                 <input 
                 type="text" 
@@ -57,6 +59,8 @@ export default function Login(){
         <div>
             <p>Don't have an Account? <Link to={"/SignUp"}>Sign Up</Link></p>
         </div>
-        </body>
+        </div>
+
+        </>
     )
 }

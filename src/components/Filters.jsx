@@ -1,16 +1,35 @@
-{/*import { FormCheck, Button } from "react-bootstrap"
-import { useState } from "react"
+import { FormCheck, Button } from "react-bootstrap"
+import { useState, useEffect } from "react"
 import Rating from "./Rating"
 
 
 export default function Filters(){
     
+
     const [rate, setRate] = useState()
    
     return (
         <>
         <div className="filters" >
             <span className="title" >Filter Products</span>
+            <span>
+            <FormCheck
+            inline
+            label="Ascending"
+            name="group1"
+            type="radio"
+            id={`inline-1`}
+            />
+          </span>
+            <span>
+            <FormCheck
+            inline
+            label="Descending"
+            name="group1"
+            type="radio"
+            id={`inline-1`}
+            />
+          </span>
           <span>
             <FormCheck
             inline
@@ -43,4 +62,4 @@ export default function Filters(){
         </div>
         </>
     )
-}*/}
+}

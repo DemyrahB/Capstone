@@ -4,11 +4,12 @@ import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-i
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
-export default function Men(){
+export default function Electronics(){
     const APIURL = "https://fakestoreapi.com/products/category"
     const [search, setSearch] = useState('')
-    const [menu, setMenu] = useState("Men")
+    const [menu, setMenu] = useState("Menu")
     const [product, setProduct] = useState([])
+    const navigate = useNavigate()
     useEffect(()=>{
         async function getCategory(){
             try {
@@ -48,7 +49,7 @@ export default function Men(){
                 <span className="header-option1">Hello, User </span>
             </div>
             </Link>
-            <Link to="/login" className="header-link"> 
+            <Link to="/signin" className="header-link"> 
             <span className="header-option2">Sign In</span>
             </Link>
             <Link className="header-link">
@@ -82,7 +83,7 @@ export default function Men(){
                         <p className="product-title">{product.title}</p>
                         <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
                         <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                        <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
+                        <button onClick={()=>navigate('/signin')} className="cart-btn">Add to Cart</button>
                     </div>
                     )
                 })}

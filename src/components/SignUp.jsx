@@ -24,7 +24,7 @@ export default function SignUp(){
             })
             const result = await response.json()
            if(result.id){
-            alert("Registraton Successful. Please login using your credentials.")
+            alert("Registration Successful. Please login using your credentials.")
            } else{
             alert("Error")
            }
@@ -77,7 +77,7 @@ export default function SignUp(){
                 <button className="signup-btn">Sign Up</button>
             </form>
             <div>
-                <p>Already have an account? <Link to={"/login"}>Sign In</Link></p>
+                <p>Already have an account? <Link to={"/signin"}>Sign In</Link></p>
             </div>
         </div>
         </>

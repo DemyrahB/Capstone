@@ -2,18 +2,22 @@ import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { CartContext } from "../Context/ShoppingCartContext";
-import Cart from "./Cart";
-export default function Jewelry(){
+import { CartContext } from "../../Context/ShoppingCartContext";
+import Cart from "../Cart";
+
+export default function UserMen(){
     const APIURL = "https://fakestoreapi.com/products/category"
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Menu")
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
+    let token = localStorage.getItem("jsonwebtoken")
+    localStorage.setItem("jsonwebtoken", token)
+    
     useEffect(()=>{
         async function getCategory(){
             try {
-            const response = await fetch (`${APIURL}/jewelery`)
+            const response = await fetch (`${APIURL}/men's clothing`)
             const result = await response.json()
             console.log(result)
             setProduct(result)
@@ -29,6 +33,7 @@ export default function Jewelry(){
         const toggle = () => {
             setShowModal(!showModal) 
         }
+
     
     return(
         <>
@@ -44,13 +49,13 @@ export default function Jewelry(){
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon"/>
                </div>
             <div className="header-nav">
-            <Link to="/" className="header-link"> 
+
             <div className="header-option">
                 <span className="header-option1">Hello, User </span>
             </div>
-            </Link>
+    
             <Link to="/signin" className="header-link"> 
-            <span className="header-option2">Sign In</span>
+            <span className="header-option2">Sign Out</span>
             </Link>
             <Link className="header-link">
             </Link>
@@ -62,11 +67,11 @@ export default function Jewelry(){
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
-                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/men"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/women"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/jewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/electronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/userhome"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/usermen"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/userwomen"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/userjewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/userelectronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
             </ul>
         </div>
 
@@ -82,8 +87,8 @@ export default function Jewelry(){
                     <div className="product-container" key={product.id}>
                         <p className="product-title">{product.title}</p>
                         <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
-                        <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-                        <button onClick={()=>navigate('/signin')} className="cart-btn">Add to Cart</button>
+                        <Link to={`/user/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
+                        <button onClick={()=>addToCart(product)} className="cart-btn">Add to Cart</button>
                     </div>
                     )
                 })}

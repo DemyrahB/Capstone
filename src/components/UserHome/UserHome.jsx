@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faShoppingCart, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { CartContext } from "../Context/ShoppingCartContext";
-import Cart from "./Cart";
+import { CartContext } from "../../Context/ShoppingCartContext";
+import Cart from "../Cart";
+import Rating from "../Rating";
 
-import Rating from "./Rating";
-
-export default function UserHome({CartState}){
+export default function UserHome(){
     const APIURL = 'https://fakestoreapi.com/products'
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Menu")
     const navigate = useNavigate()
-    
+    let token = localStorage.getItem("jsonwebtoken")
+    localStorage.setItem("jsonwebtoken", token)
 
     useEffect(()=>{
         async function getAllProducts(){
@@ -49,10 +49,8 @@ export default function UserHome({CartState}){
     
     return (
         <> 
-
-        
           <nav className="header">
-            <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
+            <Link to="/userhome"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
                 <input type="text" 
                 className="search-input" 
@@ -63,13 +61,13 @@ export default function UserHome({CartState}){
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon"/>
                </div>
             <div className="header-nav">
-            <Link to="/" className="header-link"> 
+
             <div className="header-option">
                 <span className="header-option1">Hello, User </span>
             </div>
-            </Link>
-            <Link to="/login" className="header-link"> 
-            <span className="header-option2">Sign In</span>
+     
+            <Link to={"/signin"}  className="header-link"> 
+            <span className="header-option2">Sign Out</span>
             </Link>
             </div>
             {!showModal && <button className="header-link" onClick={toggle}> 
@@ -79,11 +77,11 @@ export default function UserHome({CartState}){
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
-                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/men"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/women"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/jewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/electronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/userhome"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/usermen"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/userwomen"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/userjewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/userelectronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
             </ul>
         </div> 
                
@@ -103,7 +101,7 @@ export default function UserHome({CartState}){
             <p className="product-title">{product.title}</p>
             <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
             <p><Rating rate={product.rating}/></p>
-            <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
+            <Link to={`/user/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
             <button onClick={()=> addToCart(product)} className="cart-btn">Add to Cart</button>
         </div>
             )

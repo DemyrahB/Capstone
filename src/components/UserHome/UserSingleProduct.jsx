@@ -3,11 +3,11 @@ import { useState, useEffect, useContext } from "react"
 import axios from "axios";
 import { faStar, faStarHalf, faMagnifyingGlass, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CartContext } from "../Context/ShoppingCartContext";
-import Cart from "./Cart";
+import { CartContext } from "../../Context/ShoppingCartContext";
+import Cart from "../Cart";
 
 
-export default function SingleProduct({CartState}){
+export default function UserSingleProduct({CartState}){
     const APIURL = 'https://fakestoreapi.com/products'
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Menu")
@@ -44,13 +44,13 @@ export default function SingleProduct({CartState}){
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon"/>
                </div>
             <div className="header-nav">
-            <Link to="/" className="header-link"> 
+   
             <div className="header-option">
                 <span className="header-option1">Hello, User </span>
             </div>
-            </Link>
+
             <Link to="/signin" className="header-link"> 
-            <span className="header-option2">Sign In</span>
+            <span className="header-option2">Sign Out</span>
             </Link>
             <Link className="header-link">
             </Link>
@@ -62,11 +62,11 @@ export default function SingleProduct({CartState}){
         </nav>
         <div className="header-menu-div">
             <ul className="header-menu">
-                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/men"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/women"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/jewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/electronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none'}} to={"/userhome"}>Shop</Link> {menu ==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("men")}}> <Link style={{textDecoration: 'none'}} to={"/usesrmen"}>Men</Link> {menu ==="men"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("women")}}><Link style={{textDecoration: 'none'}} to={"/userwomen"}>Women</Link> {menu ==="women"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("jewelry")}}><Link style={{textDecoration: 'none'}} to={"/userjewelry"}>Jewelry</Link> {menu ==="jewelry"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/userelectronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
             </ul>
         </div>
 
@@ -82,7 +82,7 @@ export default function SingleProduct({CartState}){
                     <div className="product-container" key={product.id}>
                         <p className="product-title">{product.title}</p>
                         <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
-                        <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
+                        <Link to={`/user/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
                     </div>
                     )
                 })}
@@ -100,7 +100,7 @@ export default function SingleProduct({CartState}){
             <FontAwesomeIcon icon={faStarHalf} className="stars"/>
             <p>(122)</p>
            </div>
-            <button onClick={()=> navigate('/signin')} className="product-btn">ADD TO CART</button>
+            <button onClick={()=> addToCart(products)} className="product-btn">ADD TO CART</button>
             <p className="product-category"><span>Category : </span>{products.category}</p>
         </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faShoppingCart, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
@@ -14,6 +14,8 @@ export default function Home({CartState}){
     const [search, setSearch] = useState('')
     const [menu, setMenu] = useState("Menu")
     const navigate = useNavigate()
+    let token = localStorage.getItem("jsonwebtoken")
+    localStorage.setItem("jsonwebtoken", token)
     
 
     useEffect(()=>{
@@ -47,11 +49,15 @@ export default function Home({CartState}){
             setShowModal(!showModal) 
         }
 
+        const clearLocalStorage = ()=>{
+            localStorage.clear()
+        } 
     
     return (
         <> 
         {/*<Filters/>*/}
-        
+
+        {clearLocalStorage()}
           <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
@@ -69,7 +75,7 @@ export default function Home({CartState}){
                 <span className="header-option1">Hello, User </span>
             </div>
             </Link>
-            <Link to="/login" className="header-link"> 
+            <Link to="/signin" className="header-link"> 
             <span className="header-option2">Sign In</span>
             </Link>
             </div>
@@ -105,7 +111,7 @@ export default function Home({CartState}){
             <p className="product-price"><small>$</small><strong>{product.price}</strong></p>
             <p><Rating rate={product.rating}/></p>
             <Link to={`/product/${product.id}`}><img src={product.image} className="product-item" onClick={(e)=>handleSingle(product.id)}></img></Link>
-            <button onClick={()=> navigate('/login')} className="cart-btn">Add to Cart</button>
+            <button onClick={()=> navigate('/signin')} className="cart-btn">Add to Cart</button>
         </div>
             )
         })}
