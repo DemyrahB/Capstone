@@ -5,7 +5,14 @@ import Rating from "./Rating"
 
 export default function Filters(){
     
-
+  async function sortAcending(){
+      try {
+       const response = await fetch('https://fakestoreapi.com/products?sort=asc')
+       const result = await response.json()
+       console.log(result)
+    } catch (error) {
+        console.error(error)
+      }
     const [rate, setRate] = useState()
    
     return (
@@ -18,7 +25,7 @@ export default function Filters(){
             label="Ascending"
             name="group1"
             type="radio"
-            id={`inline-1`}
+            id={`inline-3`}
             />
           </span>
             <span>
@@ -27,7 +34,7 @@ export default function Filters(){
             label="Descending"
             name="group1"
             type="radio"
-            id={`inline-1`}
+            id={`inline-4`}
             />
           </span>
           <span>
@@ -47,6 +54,7 @@ export default function Filters(){
             type="radio"
             id={`inline-2`}
             />
+
            <span>
                 <label style={{ paddingRight: 10}}>RATING: </label>
                 <Rating rating={rate} onClick={(i)=>setRate(i+1)} style={{ cursor: "pointer"}}/>
@@ -55,11 +63,9 @@ export default function Filters(){
             <span>
          <Button variant="light">Clear Filters</Button>
             </span>
-          
-               
-           
 
         </div>
         </>
     )
+}
 }

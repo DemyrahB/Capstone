@@ -103,14 +103,17 @@ export default function Checkout(){
                 <label className="form-label">Card Number</label>
                 <input type="numbers"
                 placeholder="**** **** **** ****"
+                maxLength={16}
                 required className="form-input"/>
                 <label className="form-label">Expiration (MM/YY)</label>
                 <input type="text"
                 required className="form-input"
+                maxLength={5}
                 />
                 <label className="form-label">Card Security Code</label>
                 <input type="text"
-                placeholder="CVV" className="form-input"/>
+                placeholder="CVV" className="form-input" 
+                maxLength={3}/>
             
             <input type="checkbox"
                 required/><label htmlFor="">I have read and agree to the website <Link>terms and conditions</Link></label>

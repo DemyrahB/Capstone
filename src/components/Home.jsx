@@ -4,7 +4,7 @@ import { faMagnifyingGlass, faShoppingCart} from "@fortawesome/free-solid-svg-ic
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
-{/*import Filters from "./Filters"*/}
+import Filters from "./Filters"
 
 import Rating from "./Rating";
 
@@ -55,7 +55,7 @@ export default function Home({CartState}){
     
     return (
         <> 
-        {/*<Filters/>*/}
+        <Filters/>
 
         {clearLocalStorage()}
           <nav className="header">
