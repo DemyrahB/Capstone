@@ -2,7 +2,7 @@ body{
   margin: 0px;
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
-  background-color: rgb(232, 229, 229);
+  background-color: rgba(217, 209, 186, 0.167);
   width: 100%;
 }
 
@@ -35,7 +35,7 @@ body{
 }
 
 .header{
-  background-color: #69757d;
+  background-color: #786d72;
   display: flex;
   align-items: center;
   position: sticky;
@@ -101,14 +101,6 @@ body{
 .header-basket-items{
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.banner {
-  width: 80%;
-  height: 500px;
-  mask-image: linear-gradient(to bottom, rgb(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  z-index: -1;
-  margin-bottom: -150px;
 }
 
 .header-menu-div{
@@ -361,3 +353,6 @@ h4{
 .header-option1{
   color: white;
 }
+
+
+

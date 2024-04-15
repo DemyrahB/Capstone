@@ -1,11 +1,11 @@
 import { FormCheck, Button } from "react-bootstrap"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Rating from "./Rating"
 
 
 export default function Filters(){
     
-  async function sortAcending(){
+  async function sortAscending(){
       try {
        const response = await fetch('https://fakestoreapi.com/products?sort=asc')
        const result = await response.json()

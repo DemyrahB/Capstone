@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/ShoppingCartContext";
 import Cart from "./Cart";
 import Filters from "./Filters"
-
 import Rating from "./Rating";
 
 export default function Home({CartState}){
@@ -55,9 +54,11 @@ export default function Home({CartState}){
     
     return (
         <> 
-        <Filters/>
+     {clearLocalStorage()}
 
-        {clearLocalStorage()}
+        <Filters/>
+        
+        
           <nav className="header">
             <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Lorem_Ipsum_DVvD.png" alt="logo" className="e-commerce-logo"/></Link>
             <div className="header-search">
@@ -93,7 +94,6 @@ export default function Home({CartState}){
                 <li onClick={()=>{setMenu("electronics")}}><Link style={{textDecoration: 'none'}} to={"/electronics"}>Electronics</Link> {menu ==="electronics"?<hr/>:<></>}</li>
             </ul>
         </div> 
-               
                 <div>
                     <h1>Lorem Ipsum</h1>
                 </div>
